@@ -23,8 +23,8 @@
       <a href="/signIn"><button >Sign In</button></a>
       <a href="/signUp"><button>Sign Up</button></a>
     <% } else { %>
-      <a href="/playlist/private"><button>Private Playlist</button></a>
-      <a href="/playlist/public"><button>Public Playlist</button></a>
+      <a href="/playlist/<%=user.id%>/private"><button>Private Playlist</button></a>
+      <a href="/playlist/<%=user.id%>/public"><button>Public Playlist</button></a>
       <a href="/users/destroySession"><button>Sign Out</button></a>
     <% } %>
     </div>

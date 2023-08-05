@@ -4,7 +4,9 @@
         <title><%= title %> | OMdB</title>
 
         <!-- Local CSS -->
-        <link rel="stylesheet" type="text/css" href="../css/privatePlaylist.css">
+        <link rel="stylesheet" type="text/css" href="../../css/privatePlaylist.css">
+        <!-- FONT AWESOME -->
+        <script src="https://kit.fontawesome.com/f383b6eabf.js" crossorigin="anonymous"></script>
         <!-- noty.js -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
@@ -13,19 +15,44 @@
     <header>
 <!-- NAVBAR -->
         <div class="title"><a href="/">OMdB</a>
-            <div>|&nbsp; <%= user.name %></div>
+            <% if(user) { %>
+                <div>|&nbsp; <%= user.name %></div>
+            <% } %>
         </div>
         <div class="buttons">
-        <a href="/"><button>Home</button></a>
-        <a href="/playlist/private"><button>Private Playlist</button></a>
-        <a href="/users/destroySession"><button>Sign Out</button></a>
+        <% if(!user) { %>
+            <a href="/signIn"><button >Sign In</button></a>
+            <a href="/signUp"><button>Sign Up</button></a>
+        <% } else { %>
+            <a href="/"><button>Home</button></a>
+            <a href="/playlist/<%=user.id%>/private"><button>Private Playlist</button></a>
+            <a href="/users/destroySession"><button>Sign Out</button></a>
+        <% } %>
         </div>
     </header>
-
+<!-- LINK -->
+    <% if(user) { %>
+        <div class="link">
+            <h3>Share this link: </h3>&nbsp; &nbsp; &nbsp;<h4 id="link"></h4>
+        </div>
+    <% } %>
 <!-- PLAYLIST -->
     <div class="container">
         <% if (movieList.length > 0) { %>
-        <h1>Your Public Playlist</h1>
+        <div class="container-title">
+            <% if(playlist.name) { %>
+                <h1> <%=playlist.name%> </h1> 
+            <% } else { %>
+                <h1>Your Public Playlist</h1> 
+            <% } %>
+            <i id="rename" class="fa-solid fa-pen-to-square" style="color: #E55D2E;"></i>
+        </div>
+        <div id="form">
+            <form action="/playlist/public/rename" method="POST">
+                <input type="text" placeholder="Enter Playlist Name" name="name">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
         <div class="movie-list" id="movie-list">
             <% movieList.forEach(movie => { %>
             <div class="movie-item">
@@ -67,6 +94,20 @@
                 timeout:1500
             }).show()
         <% } %>
+
+        const currentUrl = window.location.href;
+        const link = document.getElementById('link');
+        link.innerHTML = currentUrl;
+
+        const rename = document.getElementById('rename');
+        const form = document.getElementById('form');
+        rename.addEventListener('click', () => {
+            if(form.style.display === 'block') {
+                form.style.display = 'none'
+            } else {
+                form.style.display = 'block'
+            }
+        })
     </script>
   </body>
 </html>

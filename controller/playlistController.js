@@ -11,8 +11,9 @@ const apiKey = '93059205';
 /* Show PRIVATE Playlist*/
 module.exports.showPrivatePlaylist = async function(req, res) {
     try {
-        let user = await User.findOne({email : res.locals.user.email});
+        let user = await User.findOne({_id : req.params.id});
         let movies = await PrivatePlaylist.find({user : user});
+        let playlist = await PrivatePlaylist.findOne({user: user});
 
         let list = [];
         // Fetch movie details from OMDB API 
@@ -31,7 +32,8 @@ module.exports.showPrivatePlaylist = async function(req, res) {
 
         return res.render('privatePlaylist', {
             title: 'Private Playlist',
-            movieList: list
+            movieList: list,
+            playlist: playlist
         })
     } catch (err) {
         console.log('Error in playlistController/private ', err);
@@ -42,8 +44,9 @@ module.exports.showPrivatePlaylist = async function(req, res) {
 /* Show PUBLIC Playlist*/
 module.exports.showPublicPlaylist = async function(req, res) {
     try {
-        let user = await User.findOne({email : res.locals.user.email});
+        let user = await User.findOne({_id : req.params.id});
         let movies = await PublicPlaylist.find({user : user});
+        let playlist = await PublicPlaylist.findOne({user: user});
 
         let list = [];
         // Fetch movie details from OMDB API
@@ -62,7 +65,8 @@ module.exports.showPublicPlaylist = async function(req, res) {
 
         return res.render('publicPlaylist', {
             title: 'Public Playlist',
-            movieList: list
+            movieList: list,
+            playlist: playlist
         })
     } catch (err) {
         console.log('Error in playlistController/public ', err);
@@ -138,6 +142,48 @@ module.exports.removePublic = async function(req, res) {
         }
     } catch (err) {
         console.log('Error in playlistController/removePublic', err);
+        return res.redirect('/');
+    }
+}
+
+/* Rename PRIVATE Playlist */
+module.exports.privateRename = async function(req, res) {
+    try {
+        let user = await User.findOne({email : res.locals.user.email});
+        let playlist = await PrivatePlaylist.findOne({user: user});
+
+        await PrivatePlaylist.findByIdAndUpdate(
+            {
+                _id : playlist._id,
+            }, {
+                name: req.body.name
+            }
+        );
+
+        return res.redirect('back');
+    } catch (err) {
+        console.log('Error in playlistController/privateRename ', err);
+        return res.redirect('/');
+    }
+}
+
+/* Rename PUBLIC Playlist */
+module.exports.publicRename = async function(req, res) {
+    try {
+        let user = await User.findOne({email : res.locals.user.email});
+        let playlist = await PublicPlaylist.findOne({user: user});
+
+        await PublicPlaylist.findByIdAndUpdate(
+            {
+                _id : playlist._id,
+            }, {
+                name: req.body.name
+            }
+        );
+        
+        return res.redirect('back');
+    } catch (err) {
+        console.log('Error in playlistController/publicRename ', err);
         return res.redirect('/');
     }
 }

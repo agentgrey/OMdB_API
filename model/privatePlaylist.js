@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 /* Creating Private Playlist */
 /* Private Playlist Schema consist of: movie id , User*/
 const privatePlaylist = new mongoose.Schema({
+    name: {
+        type: String
+    },
     id: {
         type: String,
         required: true,

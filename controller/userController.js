@@ -38,6 +38,7 @@ module.exports.createSession = async function(req, res) {
         }
         // logs in and goes to home page
         req.session.user = {
+            id: user._id,
             name: user.name,
             email: user.email
         };

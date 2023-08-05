@@ -120,3 +120,44 @@ h1 {
   font-size: 20px;
   font-weight: bold;
 }
+
+.link {
+  display: flex;
+  justify-content: center;
+}
+
+.link h3 {
+  color: #E55D2E;
+}
+
+.container-title {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container-title i {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#form {
+  display: none;
+}
+
+#form input {
+  height: 30px;
+  width: 30%;
+  font-size: 16px;
+}
+
+#form button {
+  margin-left: 10px;
+  font-size: 18px;
+  background-color: #FF8040;
+  color: #FFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
