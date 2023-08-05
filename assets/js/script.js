@@ -23,7 +23,7 @@ async function searchMovie(movie) {
         resultsContainer.appendChild(movieCard);
       });
     } else {
-      resultsContainer.innerHTML = '<p>No results found.</p>';
+      resultsContainer.innerHTML = '';
     }
   } catch (error) {
     console.error('Error fetching data:', error);

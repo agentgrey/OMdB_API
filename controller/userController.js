@@ -55,6 +55,5 @@ module.exports.destroySession = async function(req, res, done) {
         console.error('Error destroying session:', err);
         }
     });
-    console.log("Logged out!");
     return res.redirect('/signIn')
 }

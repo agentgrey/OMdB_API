@@ -5,6 +5,9 @@
 
     <!-- Local CSS -->
     <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <!-- noty.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 </head>
 <body>
 
@@ -63,5 +66,34 @@
 
   <!-- Local Javascript -->
   <script rel="typescript" src="../js/script.js"></script>
+
+  <script>
+      <% if(flash.success && flash.success.length>0) {%>
+          new Noty({
+              theme : 'light',
+              text: '<%=flash.success%>',
+              layout: 'topRight',
+              timeout:1500
+          }).show()
+      <% } %>
+      <% if(flash.error && flash.error.length>0) {%>
+          new Noty({
+              theme : 'light',
+              text: '<%=flash.error%>',
+              type: 'error',
+              layout: 'topRight',
+              timeout:1500
+          }).show()
+      <% } %>
+      <% if(flash.information && flash.information.length>0) {%>
+          new Noty({
+              theme : 'light',
+              text: '<%=flash.error%>',
+              type: 'information',
+              layout: 'topRight',
+              timeout:1500
+          }).show()
+      <% } %>
+  </script>
 </body>
 </html>

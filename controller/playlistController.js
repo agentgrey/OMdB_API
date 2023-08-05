@@ -35,7 +35,7 @@ module.exports.showPrivatePlaylist = async function(req, res) {
         })
     } catch (err) {
         console.log('Error in playlistController/private ', err);
-        return;
+        return res.redirect('/');
     }
 }
 
@@ -66,51 +66,49 @@ module.exports.showPublicPlaylist = async function(req, res) {
         })
     } catch (err) {
         console.log('Error in playlistController/public ', err);
-        return;
+        return res.redirect('/');
     }
 }
 
 /* Add Movie to PRIVATE Playlist */
 module.exports.addToPrivate = async function(req, res) {
     try {
-        console.log(req.params);
-
         const privatePlaylist = await PrivatePlaylist.findOne({id: req.params.id});
         if(!privatePlaylist) {
             await PrivatePlaylist.create({
                 id: req.params.id,
                 user: await User.findOne({email : res.locals.user.email})
             })
+            req.flash('success', 'Movie Added!');
             return res.redirect('back');
         } else {
-            console.log('Already Present');
-            return;
+            req.flash('warning', 'Already Present');
+            return res.redirect('back');
         }
     } catch (err) {
         console.log('Error in playlistController/addToPrivate ', err);
-        return ;
+        return res.redirect('/');
     }
 }
 
 /* Add Movie to PUBLIC Playlist */
 module.exports.addToPublic = async function(req, res) {
     try {
-        console.log(req.params);
-
         const publicPlaylist = await PublicPlaylist.findOne({id: req.params.id});
         if(!publicPlaylist) {
             await PublicPlaylist.create({
                 id: req.params.id,
                 user: await User.findOne({email : res.locals.user.email})
             })
+            req.flash('success', 'Movie Added!');
             return res.redirect('back');
         } else {
-            console.log('Already Present');
-            return;
+            req.flash('warning', 'Already Present');
+            return res.redirect('back');
         }
     } catch (err) {
         console.log('Error in playlistController/addToPublic ', err);
-        return ;
+        return res.redirect('/');
     }
 }
 
@@ -120,11 +118,12 @@ module.exports.removePrivate = async function(req, res) {
         let user = await User.findOne({email : res.locals.user.email});
         if(user) {
             await PrivatePlaylist.deleteOne({user: user}, {id: req.params.id});
+            req.flash('success', 'Movie Removed');
             return res.redirect('back');
         }
     } catch (err) {
         console.log('Error in playlistController/removePrivate ', err);
-        return;
+        return res.redirect('/');
     }
 }
 
@@ -134,10 +133,11 @@ module.exports.removePublic = async function(req, res) {
         let user = await User.findOne({email : res.locals.user.email});
         if(user) {
             await PublicPlaylist.deleteOne({user: user}, {id: req.params.id});
+            req.flash('success', 'Movie Removed');
             return res.redirect('back');
         }
     } catch (err) {
         console.log('Error in playlistController/removePublic', err);
-        return;
+        return res.redirect('/');
     }
 }

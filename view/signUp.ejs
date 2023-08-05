@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <title><%= title %> | OMdB</title>
+
+    <!-- Local CSS -->
     <link rel="stylesheet" type="text/css" href="../css/signIn.css">
+    <!-- noty.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 </head>
 <body>
     <div>
@@ -19,5 +24,34 @@
             <a href="/signIn" >Already have an account?</a>
         </form> 
     </div>
+    
+      <script>
+        <% if(flash.success && flash.success.length>0) {%>
+            new Noty({
+                theme : 'light',
+                text: '<%=flash.success%>',
+                layout: 'topRight',
+                timeout:1500
+            }).show()
+        <% } %>
+        <% if(flash.error && flash.error.length>0) {%>
+            new Noty({
+                theme : 'light',
+                text: '<%=flash.error%>',
+                type: 'error',
+                layout: 'topRight',
+                timeout:1500
+            }).show()
+        <% } %>
+        <% if(flash.info && flash.info.length>0) {%>
+            new Noty({
+                theme : 'light',
+                text: '<%=flash.error%>',
+                type: 'info',
+                layout: 'topRight',
+                timeout:1500
+            }).show()
+        <% } %>
+    </script>
 </body>
 </html>

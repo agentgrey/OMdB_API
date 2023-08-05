@@ -7,6 +7,8 @@ const port = 8000;
 
 const db = require("./config/mongoose");
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const flashMessages = require('./config/flashMessages');
 
 
 
@@ -19,6 +21,10 @@ app.use(session({
     maxAge: 2 * 60 * 60 * 1000 
   }
 }));
+
+/* Middleware for flash message*/
+app.use(flash());
+app.use(flashMessages.setFlash);
 
 /* Middleware to check user authentication */
 app.use((req, res, next) => {
