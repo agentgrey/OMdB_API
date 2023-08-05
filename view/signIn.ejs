@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %> | OMdB</title>
+    <link rel="stylesheet" type="text/css" href="../css/signIn.css">
+</head>
+<body>
+    <div>
+        <h1>Sign In</h1>
+    </div>
+<!-- SIGN IN FORM -->
+    <div class="form-container">
+        <form action="/users/createSession" method="POST">
+            <input type="email" name="email" placeholder="Enter email" required> <br />
+            <input type="password" name="password" placeholder="Enter password" required> <br />
+            <button type="submit">Sign In</button> <br />
+            <a href="/signUp" >Create a new Account</a>
+        </form> 
+    </div>
+</body>
+</html>

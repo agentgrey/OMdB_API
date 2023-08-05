@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %> | OMdB</title>
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+  <header>
+    <div class="title"><a href="/">OMdB</a>
+      <% if(user) { %>
+        <div>|&nbsp; <%= user.name %></div>
+      <% } %>
+    </div>
+    <div class="buttons">
+    <% if(!user) { %>
+      <a href="/signIn"><button >Sign In</button></a>
+      <a href="/signUp"><button>Sign Up</button></a>
+    <% } else { %>
+      <a href="/playlist/private"><button>Private Playlist</button></a>
+      <a href="/playlist/public"><button>Public Playlist</button></a>
+      <a href="/users/destroySession"><button>Sign Out</button></a>
+    <% } %>
+    </div>
+  </header>
+
+  <main>
+    <% if(!user) { %>
+<!-- PUBLIC PLAYLIST -->
+    <div class="container">
+      <h1>Public Playlists</h1>
+      <div id="public-playlists">
+      <% if(moviesData.length>0) { %>
+        <% for (let i = 0; i < moviesData.length; i++) { %>
+        <div class="movie-details">
+          <div class="details">
+            <img src="<%= moviesData[i].poster %>" alt="<%= moviesData[i].title %>">
+            <h3><%= moviesData[i].title %></h3>
+          </div>
+            <h2><%= moviesData[i].user %></h2>
+        </div>
+        <% } %>
+      <% } else { %> 
+        <p style="color: #777; font-size: 20px;">-- Nothing in Public Playlist --</p>
+      <% } %>
+      </div>
+    </div>
+    <% } else { %>
+    
+<!-- SEARCH BAR -->
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Type to search...">
+        </div>
+        <div class="results" id="search-results">
+          
+        </div>
+    <% } %>  
+  </main>
+
+
+  <!-- Local Javascript -->
+  <script rel="typescript" src="../js/script.js"></script>
+</body>
+</html>

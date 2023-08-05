@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= title %> | OMdB</title>
+
+        <!-- Local CSS -->
+        <link rel="stylesheet" type="text/css" href="../css/privatePlaylist.css">
+    </head>
+    <body>
+    <header>
+<!-- NAVBAR -->
+        <div class="title"><a href="/">OMdB</a>
+            <div>|&nbsp; <%= user.name %></div>
+        </div>
+        <div class="buttons">
+        <a href="/"><button>Home</button></a>
+        <a href="/playlist/private"><button>Private Playlist</button></a>
+        <a href="/users/destroySession"><button>Sign Out</button></a>
+        </div>
+    </header>
+
+<!-- PLAYLIST -->
+    <div class="container">
+        <% if (movieList.length > 0) { %>
+        <h1>Your Public Playlist</h1>
+        <div class="movie-list" id="movie-list">
+            <% movieList.forEach(movie => { %>
+            <div class="movie-item">
+                <img src="<%= movie.poster %>" alt="<%= movie.title %>">
+                <h2><%= movie.title %></h2>
+                <a href="/playlist/public/remove/?id=<%=movie.id%>" ><button class="remove-button">Remove</button></a>
+            </div>
+            <% }); %>
+        </div>
+        <% } else { %>
+        <p class="empty">Your public playlist is empty.</p>
+        <% } %>
+    </div>
+
+  </body>
+</html>
