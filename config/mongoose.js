@@ -1,7 +1,10 @@
 /* ---------- IMPORTING PACKAGES ---------- */
 const mongoose = require('mongoose');
 
-const DB = 'mongodb://127.0.0.1/omdbApi';
+// const DB = 'mongodb://127.0.0.1/omdbApi';
+// Storing the DB on mongo atlas
+const DB = "mongodb+srv://himadrinayak:12345@cluster0.h7n86ah.mongodb.net/omdb-api?retryWrites=true&w=majority";
+
 const db = mongoose.connection; 
 
 

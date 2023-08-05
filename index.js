@@ -10,16 +10,27 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const flashMessages = require('./config/flashMessages');
 
+const MongoStore = require('connect-mongo');
+
 
 
 /* Set up session handling */ 
 app.use(session({
   secret: '12345',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
-    maxAge: 2 * 60 * 60 * 1000 
-  }
+    maxAge: (1000 * 60 * 100)
+  },
+  store: MongoStore.create(
+        {
+            mongoUrl:"mongodb+srv://himadrinayak:12345@cluster0.h7n86ah.mongodb.net/omdb-api?retryWrites=true&w=majority",
+            autoRemover : 'disabled'
+        },
+        function(err){
+            console.log("Error in the mongo-store");
+        }
+    ),
 }));
 
 /* Middleware for flash message*/
